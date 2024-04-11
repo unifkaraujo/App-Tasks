@@ -1,0 +1,5 @@
+// referência para .env
+
+module.exports = {
+    authSecret: ''
+}
