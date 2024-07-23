@@ -57,6 +57,19 @@ export default class TaskList extends Component {
         }, this.filterTasks)
 
         this.loadTasks()
+
+        // sempre que o foco mudar para essa aba, atualizo os registros
+        this.focusListener = this.props.navigation.addListener('focus', this.loadTasks);
+
+    }
+
+    componentWillUnmount() {
+
+        // Liberando espaço dos eventos
+        if (this.focusListener) {
+          this.focusListener();
+        }
+
     }
 
     loadTasks = async() => {
@@ -193,7 +206,7 @@ export default class TaskList extends Component {
 
     render() {
 
-        const today = moment().locale('pt-br').format('ddd, D [de] MMMM')
+        const today = moment().add({days: this.props.daysAhead}).locale('pt-br').format('ddd, D [de] MMMM')
 
         return (
 
